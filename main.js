@@ -47,26 +47,6 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   
   
-// document.addEventListener('DOMContentLoaded', function () {
-//     // Select the elements
-//     const semester1Div = document.querySelector('.Semester-1');
-//     const pyqSection = document.querySelector('.pyq');
-//     const container1Div = document.querySelector('.container-1');
-//     const indexSection = document.querySelector('.index');
-  
-//     // Add click event listener to the semester-1 div
-//     semester1Div.addEventListener('click', function () {
-//       // Add 'hide' class to section with class 'pyq'
-//       pyqSection.classList.remove('hide');
-  
-//       // Remove 'hide' class from div with class 'container-1'
-//       container1Div.classList.remove('hide');
-  
-//       // Add 'hide' class to section with class 'index'
-//       indexSection.classList.add('hide');
-//     });
-//   });
-  
 
 
 function showToast(message) {
