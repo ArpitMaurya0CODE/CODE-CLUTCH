@@ -13,84 +13,60 @@
 
 
 
-
-// if (window.location.pathname.includes("index.html")) {
-    
-//     const semesterButtons = document.querySelectorAll("[class^='Semester-']");
-
-    
-//     semesterButtons.forEach(button => {
-//         button.addEventListener("click", (event) => {
-//             const semesterClass = event.target.className; 
-//             localStorage.setItem("selectedSemester", semesterClass); 
-//             window.location.href = "pyq.html"; 
-//         });
-//     });
-// }
-
-// // On pyq.html
-// if (window.location.pathname.includes("pyq.html")) {
-//     const selectedSemester = localStorage.getItem("selectedSemester"); 
-//     if (selectedSemester) {
-        
-//         const containerClass = selectedSemester.replace("Semester", "container");
-//         const container = document.querySelector(`.${containerClass}`); 
-//         if (container) {
-//             container.classList.remove("hide"); 
-//         }
-//         localStorage.removeItem("selectedSemester"); 
-//     }
-// }
-
-
-
-
-if (window.location.pathname.includes("index.html")) {
-    // Select all anchor tags with class starting with "Semester-"
-    const semesterButtons = document.querySelectorAll("a[class^='Semester-']");
-
-    semesterButtons.forEach(button => {
-        button.addEventListener("click", (event) => {
-            // Ensure we're getting the clicked element correctly
-            const classes = event.currentTarget.classList;
-
-            // Find the "Semester-" class
-            const semesterClass = [...classes].find(className => className.startsWith('Semester-'));
-
-            if (semesterClass) {
-                // Store the semester class in localStorage
-                localStorage.setItem("selectedSemester", semesterClass);
-                // Redirect to pyq.html
-                window.location.href = "pyq.html";
-            } else {
-                console.error("No 'Semester-' class found on the clicked element.");
-            }
+// Wait for the DOM to fully load
+document.addEventListener('DOMContentLoaded', function () {
+    // Iterate from 1 to 8 for semester and container pairs
+    for (let i = 1; i <= 8; i++) {
+      // Select the current semester div
+      const semesterDiv = document.querySelector(`.Semester-${i}`);
+      
+      // Ensure the semester div exists before adding an event listener
+      if (semesterDiv) {
+        // Add event listener to each semester div
+        semesterDiv.addEventListener('click', function () {
+          // Select the PYQ and Index sections
+          const pyqSection = document.querySelector('.pyq');
+          const indexSection = document.querySelector('.index');
+          
+          // Ensure these elements exist and toggle their classes
+          if (pyqSection) pyqSection.classList.remove('hide');
+          if (indexSection) indexSection.classList.add('hide');
+  
+          // Hide all container divs
+          for (let j = 1; j <= 8; j++) {
+            const containerDiv = document.querySelector(`.container-${j}`);
+            if (containerDiv) containerDiv.classList.add('hide');
+          }
+  
+          // Unhide the corresponding container div
+          const targetContainer = document.querySelector(`.container-${i}`);
+          if (targetContainer) targetContainer.classList.remove('hide');
         });
-    });
-}
-
-if (window.location.pathname.includes("pyq.html")) {
-    // Retrieve the selected semester from localStorage
-    const selectedSemester = localStorage.getItem("selectedSemester");
-
-    if (selectedSemester) {
-        // Map the semester class to its corresponding container class
-        const containerClass = selectedSemester.replace("Semester-", "container-");
-        const container = document.querySelector(`.${containerClass}`);
-
-        if (container) {
-            // Reveal the relevant container
-            container.classList.remove("hide");
-        } else {
-            console.error(`Container with class '${containerClass}' not found.`);
-        }
-        // Clear the localStorage to avoid re-triggering
-        localStorage.removeItem("selectedSemester");
-    } else {
-        console.warn("No selected semester found in localStorage.");
+      }
     }
-}
-
+  });
+  
+  
+// document.addEventListener('DOMContentLoaded', function () {
+//     // Select the elements
+//     const semester1Div = document.querySelector('.Semester-1');
+//     const pyqSection = document.querySelector('.pyq');
+//     const container1Div = document.querySelector('.container-1');
+//     const indexSection = document.querySelector('.index');
+  
+//     // Add click event listener to the semester-1 div
+//     semester1Div.addEventListener('click', function () {
+//       // Add 'hide' class to section with class 'pyq'
+//       pyqSection.classList.remove('hide');
+  
+//       // Remove 'hide' class from div with class 'container-1'
+//       container1Div.classList.remove('hide');
+  
+//       // Add 'hide' class to section with class 'index'
+//       indexSection.classList.add('hide');
+//     });
+//   });
+  
 
 
 function showToast(message) {
