@@ -46,40 +46,50 @@
 
 
 if (window.location.pathname.includes("index.html")) {
+    // Select all anchor tags with class starting with "Semester-"
     const semesterButtons = document.querySelectorAll("a[class^='Semester-']");
 
     semesterButtons.forEach(button => {
         button.addEventListener("click", (event) => {
-            // Get all the classes of the clicked element
-            const classes = event.target.classList;
-            
-            // Find the class that starts with "Semester-" (could be multiple classes)
+            // Ensure we're getting the clicked element correctly
+            const classes = event.currentTarget.classList;
+
+            // Find the "Semester-" class
             const semesterClass = [...classes].find(className => className.startsWith('Semester-'));
 
             if (semesterClass) {
-                // Store only the "Semester-" class in localStorage
+                // Store the semester class in localStorage
                 localStorage.setItem("selectedSemester", semesterClass);
-                window.location.href = "pyq.html"; 
+                // Redirect to pyq.html
+                window.location.href = "pyq.html";
+            } else {
+                console.error("No 'Semester-' class found on the clicked element.");
             }
         });
     });
 }
+
 if (window.location.pathname.includes("pyq.html")) {
+    // Retrieve the selected semester from localStorage
     const selectedSemester = localStorage.getItem("selectedSemester");
-    
+
     if (selectedSemester) {
-        const containerClass = selectedSemester.replace("Semester", "container");
+        // Map the semester class to its corresponding container class
+        const containerClass = selectedSemester.replace("Semester-", "container-");
         const container = document.querySelector(`.${containerClass}`);
 
         if (container) {
+            // Reveal the relevant container
             container.classList.remove("hide");
         } else {
-            console.error(`Container for ${selectedSemester} not found.`);
+            console.error(`Container with class '${containerClass}' not found.`);
         }
+        // Clear the localStorage to avoid re-triggering
         localStorage.removeItem("selectedSemester");
+    } else {
+        console.warn("No selected semester found in localStorage.");
     }
 }
-
 
 
 
