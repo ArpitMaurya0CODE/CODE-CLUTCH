@@ -55,23 +55,17 @@ function showToast(message) {
     toast.style.display = 'block'; 
     setTimeout(() => {
         toast.style.display = 'none'; 
-    }, 2000); 
+    }, 3000); 
 }
 
 
 document.querySelectorAll('.myDiv').forEach(div => {
     div.addEventListener('click', function () {
-        showToast('PLEASE CLICK ON TEXT "Semester 👈" ');
+        showToast('COMING SOON ✨!!!! ');
     });
 });
 
 
-document.querySelectorAll('.myText').forEach(text => {
-    text.addEventListener('click', function (event) {
-        event.stopPropagation(); 
-        showToast('Text clicked ✨!');
-    });
-});
 
 
 document.getElementById("scrollButton").addEventListener("click", function() {
